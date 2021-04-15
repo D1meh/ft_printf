@@ -1,5 +1,12 @@
 #include "includes/ft_printf.h"
 
+void	precNUL(va_list args, t_print *prt)
+{
+	va_arg(args, char *);
+	while (prt->nb1-- > 0)
+		ft_putchar(' ', prt);
+}
+
 char	*putspaces(char c, va_list args, t_print *prt)
 {
 	char	*s;

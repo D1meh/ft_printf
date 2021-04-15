@@ -41,5 +41,6 @@ void			ft_putnstr(char *s, t_print *prt, int n);
 void			put_doubleD(t_print *prt, char *s);
 int				absolute(int a, t_print *prt);
 char			*putspaces(char c, va_list args, t_print *prt);
+void			precNUL(va_list args, t_print *prt);
 
 #endif

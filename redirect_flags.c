@@ -100,13 +100,14 @@ void	redirect_flag(t_print *prt, va_list args, char *flags)
 	c = flags[ft_strlen(flags) - 1];
 	if ((!prt->minus && !prt->dot && !prt->zero) && c == 'c')
 		flag_number(prt, args, flags);
-	else if ((!prt->minus && !prt->dot && !prt->zero) 
-		|| (prt->nb1 && !prt->nb2 && prt->dot))
+	else if (!prt->minus && !prt->dot && !prt->zero)
 	{
 		s = putspaces(c, args, prt);
 		ft_putstr(s, prt);
 		free(s);
 	}
+	else if (prt->nb1 && !prt->nb2 && prt->dot)
+		precNUL(args, prt);
 	else if (prt->zero || (c != 'c' && c != 's'
 			&& c != 'p' && prt->dot && !prt->nb1))
 		flag_zero(prt, args, c);
