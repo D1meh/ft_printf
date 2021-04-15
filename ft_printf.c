@@ -23,5 +23,6 @@ int	ft_printf(const char *str, ...)
 		}
 		i++;
 	}
+	va_end(args);
 	return (prt.len);
 }

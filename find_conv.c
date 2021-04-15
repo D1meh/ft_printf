@@ -44,7 +44,6 @@ static int	is_flag(char *flags)
 	return (0);
 }
 
-#include <stdio.h>
 int	find_conv(const char *str, va_list args, int *i, t_print *prt)
 {
 	int		tmp;

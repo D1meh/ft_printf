@@ -11,7 +11,9 @@ SRCS = ft_printf.c \
 		itoh.c \
 		number.c \
 		redirect.c \
-		redirect_flags.c
+		redirect_flags.c \
+		ft_putS.c
+		
 OBJS = $(SRCS:.c=.o)
 INCLUDE = -I./includes
 
@@ -31,7 +33,7 @@ clean:
 			$(MAKE) clean -C ./libft
 			$(RM) $(OBJS)
 
-fclean:		
+fclean:		clean
 			$(MAKE) fclean -C ./libft
 			$(RM) $(NAME)
 

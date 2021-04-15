@@ -18,17 +18,31 @@ static void	change_prt(char f, t_print *prt)
 		prt->minus = 1;
 }
 
-static void	change_nb(int *prt_nb, char *flags, int *i, va_list args)
+static void	change_nb(t_print *prt, char *flags, int *i, va_list args)
 {
+	static int	n = 1;
+
+	if (is_conv(flags[*i]))
+	{
+		n++;
+		return ;
+	}
 	if (flags[*i] == '*')
 	{
-		*prt_nb = va_arg(args, int);
+		if (n % 2 == 1)
+			prt->nb1 = absolute(va_arg(args, int), prt);
+		else
+			prt->nb2 = absolute(va_arg(args, int), prt);
 		*i = *i + 1;
 	}
 	else
-		*prt_nb = new_atoi(flags, i);
-	if (*prt_nb < 0)
-		*prt_nb = 1;
+	{
+		if (n % 2 == 1)
+			prt->nb1 = new_atoi(flags, i);
+		else
+			prt->nb2 = new_atoi(flags, i);
+	}
+	n++;
 }
 
 int	getFlag(char *flags, t_print *prt, va_list args)
@@ -38,7 +52,7 @@ int	getFlag(char *flags, t_print *prt, va_list args)
 	i = 0;
 	if (checkZero(flags[i], prt))
 		i++;
-	change_nb(&prt->nb1, flags, &i, args);
+	change_nb(prt, flags, &i, args);
 	if (flags[i] == '.' || flags[i] == '-')
 	{
 		if (prt->zero || (flags[i] == '-' && prt->nb1))
@@ -49,8 +63,7 @@ int	getFlag(char *flags, t_print *prt, va_list args)
 		change_prt(flags[i], prt);
 		i++;
 	}
-	if (!is_conv(flags[i]))
-		change_nb(&prt->nb2, flags, &i, args);
+	change_nb(prt, flags, &i, args);
 	if (!is_conv(flags[i]))
 	{
 		free(flags);

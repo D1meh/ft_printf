@@ -15,6 +15,16 @@ int	base10(long long int n)
 	return (base);
 }
 
+int	absolute(int a, t_print *prt)
+{
+	if (a < 0)
+	{
+		prt->minus = 1;
+		return (-a);
+	}
+	return (a);
+}
+
 long long int	new_atoi(char *str, int *i)
 {
 	long long int	nb;

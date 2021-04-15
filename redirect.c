@@ -1,4 +1,5 @@
 #include "includes/ft_printf.h"
+#include <stdio.h>
 
 void	redirect(char *flags, va_list args, t_print *prt)
 {

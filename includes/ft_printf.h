@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "../libft/libft.h"
+#include <stdio.h>
 
 typedef struct s_print
 {
@@ -38,5 +39,7 @@ void			putzero_x(char *x, t_print *prt);
 void			redirect_flag(t_print *prt, va_list args, char *flags);
 void			ft_putnstr(char *s, t_print *prt, int n);
 void			put_doubleD(t_print *prt, char *s);
+int				absolute(int a, t_print *prt);
+char			*putspaces(char c, va_list args, t_print *prt);
 
 #endif
