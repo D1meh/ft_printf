@@ -15,11 +15,16 @@ int	base10(long long int n)
 	return (base);
 }
 
-int	absolute(int a, t_print *prt)
+int	absolute(int a, t_print *prt, int n)
 {
 	if (a < 0)
 	{
-		prt->minus = 1;
+		prt->min_pos = 1 + prt->dot;
+		prt->minus++;
+		if (n % 2 == 1)
+			prt->is_neg1 = 1;
+		else
+			prt->is_neg2 = 1;
 		return (-a);
 	}
 	return (a);
@@ -43,6 +48,12 @@ void	ft_putnbr(long long int n, t_print *prt)
 	long long int	nb;
 
 	nb = n;
+	if (nb == 0 && prt->minus && prt->nb1 && !prt->nb2)
+	{
+		while (prt->nb1--)
+			ft_putchar(' ', prt);
+		return ;
+	}
 	if (nb < 0)
 	{
 		ft_putchar('-', prt);

@@ -34,7 +34,7 @@ void	*ft_memchr(const void *str, int c, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *b, int c, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
-char	*ft_itoa(int n);
+char	*ft_itoa(long long int n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

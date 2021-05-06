@@ -10,12 +10,32 @@ static int	checkZero(char f, t_print *prt)
 	return (0);
 }
 
-static void	change_prt(char f, t_print *prt)
+static void	change_prt(char *flag, t_print *prt, int *i)
 {
-	if (f == '.')
+	if (flag[*i] == '.')
+	{
+		*i = *i + 1;
 		prt->dot = 1;
-	if (f == '-')
-		prt->minus = 1;
+		prt->dot_pos = 1 + prt->minus;
+	}
+	if (flag[*i] == '-')
+	{
+		*i = *i + 1;
+		prt->minus++;
+		prt->min_pos = 1 + prt->dot;
+	}
+}
+
+static void	changestar(t_print *prt, int n, va_list args)
+{
+	if (n % 2 == 1)
+	{
+		prt->nb1 = absolute(va_arg(args, int), prt, n);
+	}
+	else
+	{
+		prt->nb2 = absolute(va_arg(args, int), prt, n);
+	}
 }
 
 static void	change_nb(t_print *prt, char *flags, int *i, va_list args)
@@ -27,12 +47,11 @@ static void	change_nb(t_print *prt, char *flags, int *i, va_list args)
 		n++;
 		return ;
 	}
+	if (flags[*i] == '0')
+		*i = *i + 1;
 	if (flags[*i] == '*')
 	{
-		if (n % 2 == 1)
-			prt->nb1 = absolute(va_arg(args, int), prt);
-		else
-			prt->nb2 = absolute(va_arg(args, int), prt);
+		changestar(prt, n, args);
 		*i = *i + 1;
 	}
 	else
@@ -50,39 +69,22 @@ int	getFlag(char *flags, t_print *prt, va_list args)
 	int	i;
 
 	i = 0;
-	if (checkZero(flags[i], prt))
-		i++;
-	change_nb(prt, flags, &i, args);
-	if (flags[i] == '.' || flags[i] == '-')
+	while (flags[i] != '\0' && !is_conv(flags[i]))
 	{
-		if (prt->zero || (flags[i] == '-' && prt->nb1))
-		{
-			free(flags);
-			return (-1);
-		}
-		change_prt(flags[i], prt);
-		i++;
+		if (checkZero(flags[i], prt))
+			i++;
+		if (flags[i] == '-')
+			change_prt(flags, prt, &i);
+		change_nb(prt, flags, &i, args);
+		change_prt(flags, prt, &i);
+		change_nb(prt, flags, &i, args);
 	}
-	change_nb(prt, flags, &i, args);
+	if (prt->minus && !prt->dot && prt->nb1 && !prt->nb2)
+	{
+		prt->nb2 = prt->nb1;
+		prt->nb1 = 0;
+	}
 	if (!is_conv(flags[i]))
-	{
-		free(flags);
-		return (-1);
-	}
-	return (1);
-}
-
-int	check_error(char *flags, t_print *prt)
-{
-	char	c;
-
-	c = flags[ft_strlen(flags) - 1];
-	if ((c == 'c' || c == 'p') && (prt->zero || prt->dot))
-	{
-		free(flags);
-		return (-1);
-	}
-	if (c == 's' && prt->zero)
 	{
 		free(flags);
 		return (-1);

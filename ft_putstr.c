@@ -4,6 +4,8 @@ void	ft_putstr(char *s, t_print *prt)
 {
 	int	i;
 
+	if (s == NULL)
+		return (ft_putstr("(null)", prt));
 	i = 0;
 	while (s[i])
 	{
@@ -12,23 +14,17 @@ void	ft_putstr(char *s, t_print *prt)
 	}
 }
 
-void	put_doubleD(t_print *prt, char *s)
+void	ft_put_and_free(char *s, t_print *prt, char c)
 {
-	int	zeros;
-	int	spaces;
+	int	i;
 
-	zeros = prt->nb2 - ft_strlen(s);
-	spaces = prt->nb1 - zeros - ft_strlen(s);
-	while (spaces > 0)
+	i = 0;
+	if (c == 'p')
+		ft_putstr("0x", prt);
+	while (s[i])
 	{
-		ft_putchar(' ', prt);
-		spaces--;
+		ft_putchar(s[i], prt);
+		i++;
 	}
-	while (zeros > 0)
-	{
-		ft_putchar('0', prt);
-		zeros--;
-	}
-	ft_putstr(s, prt);
 	free(s);
 }

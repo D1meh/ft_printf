@@ -1,6 +1,6 @@
 #include "includes/ft_printf.h"
 
-static int	base16(long int nb)
+static int	base16(long long int nb)
 {
 	int	count;
 
@@ -33,11 +33,8 @@ static char	*alloc_nb(long long int nb, char *hexa)
 	n[count] = 0;
 	i = count - 1;
 	if (nb < 0)
-	{
-		n[0] = '-';
 		nb = -nb;
-	}
-	while (nb != 0 && n[i] != '-' && i >= 0)
+	while (i >= 0)
 	{
 		n[i] = hexa[nb % 16];
 		i--;
@@ -46,24 +43,32 @@ static char	*alloc_nb(long long int nb, char *hexa)
 	return (n);
 }
 
-static char	*change_a(char *a, int maj)
+static char	*change_a(int maj)
 {
+	char	*a;
+
 	if (maj)
-		a = upper(a);
+		a = ft_strdup("0123456789ABCDEF");
 	else
-		a = lower(a);
+		a = ft_strdup("0123456789abcdef");
 	return (a);
 }
 
 char	*itoh(long long n, int maj)
 {
-	static char		a[16] = "0123456789abcdef";
+	char			*a;
 	long long int	nb;
 	char			*hexa;
 
 	nb = n;
-	change_a(a, maj);
+	a = change_a(maj);
 	hexa = alloc_nb(nb, a);
+	if (nb == 0)
+	{
+		hexa[0] = '0';
+		hexa[1] = 0;
+	}
+	free(a);
 	return (hexa);
 }
 
@@ -71,7 +76,12 @@ void	put_itoh(long long n, int maj, t_print *prt)
 {
 	char	*s;
 
-	s = itoh(n, maj);
+	if (n == LONG_MIN)
+		s = ft_strdup("8000000000000000");
+	else if ((unsigned long)n == ULONG_MAX)
+		s = ft_strdup("ffffffffffffffff");
+	else
+		s = itoh(n, maj);
 	ft_putstr(s, prt);
 	free(s);
 }

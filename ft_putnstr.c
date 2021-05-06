@@ -2,8 +2,10 @@
 
 void	ft_putnstr(char *s, t_print *prt, int n)
 {
-	int	i;
+	int		i;
 
+	if (!s)
+		return (ft_putnstr("(null)", prt, n));
 	i = 0;
 	while (s[i] && i < n)
 	{

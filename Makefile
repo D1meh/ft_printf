@@ -5,14 +5,18 @@ SRCS = ft_printf.c \
 		ft_putnstr.c \
 		ft_putP.c \
 		ft_putstr.c \
-		ft_uplow.c \
 		getFlag.c \
 		init_struct.c \
 		itoh.c \
 		number.c \
 		redirect.c \
 		redirect_flags.c \
-		ft_putS.c
+		ft_putS.c \
+		ft_putD.c \
+		new_itoa.c \
+		ft_putX.c \
+		flag_zero.c \
+		flag_dot.c
 		
 OBJS = $(SRCS:.c=.o)
 INCLUDE = -I./includes
@@ -24,7 +28,6 @@ RM = rm -f
 $(NAME):	$(OBJS)
 			$(MAKE) bonus -C ./libft
 			cp libft/libft.a $(NAME)
-			$(GCC) $(FLAGS) $(INCLUDE) $(SRCS)
 			ar -rcs $(NAME) $(OBJS)
 
 all:		$(NAME)

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	base10(int n)
+static int	base10(long long int n)
 {
 	int	base;
 
@@ -27,7 +27,7 @@ static int	base10(int n)
 	return (base);
 }
 
-static char	*alloc_nb(int n)
+static char	*alloc_nb(long long int n)
 {
 	char	*numb;
 	int		size;
@@ -49,7 +49,7 @@ static char	*alloc_nb(int n)
 	return (numb);
 }
 
-static	char	*rempl_tab(int n, char *numb)
+static	char	*rempl_tab(long long int n, char *numb)
 {
 	int				i;
 	unsigned int	nb;
@@ -73,7 +73,7 @@ static	char	*rempl_tab(int n, char *numb)
 	return (numb);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long int n)
 {
 	char		*numb;
 
