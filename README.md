@@ -5,5 +5,5 @@ This code has been validated by the moulinette, the algorithm of the school that
 
 This code is pretty messed up when it comes to flags output and redirection.
 It's not a great idea to copy it, because it's quite hard to understand it.
-And to be honest, i don't really understand it either, i know what i've done but i couldn't explain why i did it and how it affects the final results.
-But if you really want to copy it, go ahead, the rest is not that hard to understand. Just remember that copying codes and projects aren't the best way to learn.
+And to be honest, i don't really understand it either, i know what i've done but i can't really explain why I have to do it.
+But if you really want to copy it, go ahead, the rest is not that hard to understand. Just keep in mind that copying codes and projects aren't the best way to learn.
